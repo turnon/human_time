@@ -22,10 +22,16 @@ module HumanTime
     end
 
     def included base
-      greater_than_aliases.each{ |ali| base.send :alias_method, ali, :> }
-      greater_than_or_equal_to_aliases.each{ |ali| base.send :alias_method, ali, :>= }
-      less_than_aliases.each{ |ali| base.send :alias_method,ali, :< }
-      less_than_or_equal_to_aliases.each{ |ali| base.send :alias_method, ali, :<= }
+      add_alias base, greater_than_aliases, :>
+      add_alias base, greater_than_or_equal_to_aliases, :>=
+      add_alias base, less_than_aliases, :<
+      add_alias base, less_than_or_equal_to_aliases, :<=
+    end
+
+    private
+
+    def add_alias base, aliases, op
+      aliases.each{ |ali| base.send :alias_method, ali, op }
     end
   end
 
