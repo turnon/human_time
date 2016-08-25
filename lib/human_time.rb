@@ -21,16 +21,16 @@ module HumanTime
       %w{older_than_or_equal_to? before_or_equal_to? earlier_than_or_equal_to?}
     end
 
-    def included base
-      add_alias base, greater_than_aliases, :>
-      add_alias base, greater_than_or_equal_to_aliases, :>=
-      add_alias base, less_than_aliases, :<
-      add_alias base, less_than_or_equal_to_aliases, :<=
+    def included(base)
+      add_alias(base, greater_than_aliases, :>)
+      add_alias(base, greater_than_or_equal_to_aliases, :>=)
+      add_alias(base, less_than_aliases, :<)
+      add_alias(base, less_than_or_equal_to_aliases, :<=)
     end
 
     private
 
-    def add_alias base, aliases, op
+    def add_alias(base, aliases, op)
       aliases.each{ |ali| base.send :alias_method, ali, op }
     end
   end
